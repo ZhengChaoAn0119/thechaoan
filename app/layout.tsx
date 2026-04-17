@@ -47,7 +47,7 @@ export default function RootLayout({
             {/* 右側：社群 Icon 佔位 (可之後換成 react-icons) */}
             <div className="flex gap-4 text-zinc-500">
               <span className="cursor-pointer hover:text-white transition-colors text-xs">TW</span>
-              <span className="cursor-pointer hover:text-white transition-colors text-xs">GH</span>
+              <span className="cursor-pointer hover:text-white transition-colors text-xs">EN</span>
             </div>
           </div>
 
