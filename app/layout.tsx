@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link"; // 引入 Next.js 的連結組件
+import NavLink from "./components/NavLink";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -53,11 +54,11 @@ export default function RootLayout({
 
           {/* --- 第二部分：導航選單 (Lower Tier) --- */}
           <nav className="w-full border-t border-zinc-900/50">
-            <ul className="flex justify-center gap-10 py-4 text-[11px] font-bold tracking-widest text-zinc-500 uppercase">
-              <li><Link href="/" className="hover:text-white transition-colors">Home</Link></li>
-              <li><Link href="/about" className="hover:text-white transition-colors">About</Link></li>
-              <li><Link href="/resume" className="hover:text-white transition-colors">Resume</Link></li>
-              <li><Link href="/projects" className="hover:text-white transition-colors">Projects</Link></li>
+            <ul className="flex justify-center items-end gap-10 py-4">
+              <li><NavLink href="/" label="Home" /></li>
+              <li><NavLink href="/about" label="About" /></li>
+              <li><NavLink href="/resume" label="Resume" /></li>
+              <li><NavLink href="/projects" label="Projects" /></li>
             </ul>
           </nav>
         </header>
