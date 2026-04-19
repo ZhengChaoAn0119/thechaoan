@@ -56,8 +56,8 @@ export default function RootLayout({
           <nav className="w-full border-t border-zinc-900/50">
             <ul className="flex justify-center items-end gap-10 py-4">
               <li><NavLink href="/" label="Home" /></li>
-              <li><NavLink href="/about" label="About" /></li>
-              <li><NavLink href="/resume" label="Resume" /></li>
+              <li><NavLink href="/aboutme" label="About me" /></li>
+              <li><NavLink href="/blog" label="blog" /></li>
               <li><NavLink href="/projects" label="Projects" /></li>
             </ul>
           </nav>
