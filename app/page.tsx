@@ -48,7 +48,7 @@ export default function Home() {
                 <ArrowRight size={14} />
               </Link>
               <Link
-                href="/about"
+                href="/aboutme"
                 className="flex items-center gap-2 px-6 py-3 rounded-full border border-zinc-700 bg-black/20 backdrop-blur-sm text-zinc-300 text-sm font-medium hover:border-zinc-500 hover:text-white transition-all"
               >
                 About Me
