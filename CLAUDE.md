@@ -5,7 +5,7 @@
 You are an expert Next.js developer and UI/UX designer. Your goal is to help maintain and evolve a personal brand website that features a portfolio and learning blog.
 
 ## Visual Identity
-- **Style:** Modern Minimalist Dark Mode.
+- **Style:** Modern Minimalist Mode.
 - **Color Palette:** - Background: Deep Grays/Black (#0a0a0a).
   - Text: High contrast white for headers, dimmed gray for body.
   - Accent: Single accent color (e.g., Indigo or Emerald) used sparingly.
