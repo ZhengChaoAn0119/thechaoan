@@ -16,16 +16,16 @@ export default function AboutPage() {
           — who I am —
         </p>
         <p className="text-zinc-400 leading-relaxed">
-          Based in Taoyuan, Taiwan. Background in architecture design with strong structured thinking and execution under pressure.
+          I am Chaoan Zheng from Taoyuan, Taiwan. I have a background in architecture design with strong structured thinking and execution under pressure.
         </p>
         <p className="text-zinc-400 leading-relaxed">
-        Focused on software engineering with Python, developing skills in computer vision and system development. Currently building image recognition projects covering data processing, model training, and deployment workflows.
+          Focused on software engineering with Python, developing skills in computer vision and system development. Currently building image recognition projects covering data processing, model training, and deployment workflows.
         </p>
         <p className="text-zinc-400 leading-relaxed">
-        Adaptable in choosing technologies based on problem requirements.
+          Adaptable in choosing technologies based on problem requirements.
         </p>
         <p className="text-zinc-400 leading-relaxed">
-        Future focus: Computer Vision, NLP, Full-stack, Cloud.
+          Future focus: Computer Vision, NLP, Full-stack, Cloud.
         </p>
       </section>
 
