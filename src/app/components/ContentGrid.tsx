@@ -5,16 +5,9 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useDebounce } from "../hooks/useDebounce";
 import FilterBar from "./FilterBar";
 import ContentCard from "./ContentCard";
+import type { ContentItem } from "@/lib/data";
 
-export type ContentItem = {
-  slug: string;
-  title: string;
-  excerpt: string;
-  date: string;
-  image?: string;
-  tag: string;
-  featured?: boolean;
-};
+export type { ContentItem };
 
 type Tab = "latest" | "top";
 

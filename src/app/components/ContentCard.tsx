@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ContentItem } from "./ContentGrid";
+import type { ContentItem } from "@/lib/data";
 
 export default function ContentCard({ item }: { item: ContentItem }) {
   const displayDate =

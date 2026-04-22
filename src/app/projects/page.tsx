@@ -1,32 +1,14 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import ContentGrid, { ContentItem } from "../components/ContentGrid";
+import { allContent } from "@/lib/data";
+import ContentGrid from "../components/ContentGrid";
 
 export const metadata: Metadata = {
   title: "Projects — ChaoAn Zheng",
   description: "A portfolio of work, side projects, and experiments.",
 };
 
-const projects: ContentItem[] = [
-  {
-    slug: "#",
-    title: "Personal Website",
-    excerpt:
-      "This site — built with Next.js 14 App Router, Tailwind CSS, and MDX. A personal brand and portfolio platform.",
-    date: "2026-04-01",
-    tag: "Next.js · Tailwind",
-    featured: true,
-  },
-  {
-    slug: "#",
-    title: "Portfolio v1",
-    excerpt:
-      "The first iteration of my portfolio, built with plain React and CSS Modules. A learning exercise in component architecture.",
-    date: "2026-01-15",
-    tag: "React",
-    featured: false,
-  },
-];
+const projects = allContent.filter((item) => item.type === "project");
 
 export default function ProjectsPage() {
   return (

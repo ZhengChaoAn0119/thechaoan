@@ -1,17 +1,26 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { allContent } from "@/lib/data";
+
+const latestPosts = allContent
+  .filter((item) => item.type === "blog" && item.date !== "coming-soon")
+  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+  .slice(0, 2);
+
+const latestProject = allContent
+  .filter((item) => item.type === "project")
+  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+  .slice(0, 1);
 
 export default function Home() {
   return (
     <div className="flex flex-col items-center">
 
       {/* ── Hero ─────────────────────────────────────────────── */}
-      {/* 1:4:1 ratio on large screens — w-2/3 = 4 parts, auto margins = 1 part each */}
       <section className="w-full lg:w-2/3 mx-auto px-6 pt-6 pb-10">
         <div className="relative w-full overflow-hidden rounded-2xl px-8 py-16 sm:px-20">
 
-          {/* Background image confined to the card */}
           <div className="absolute inset-0 -z-10">
             <Image
               src="/hero-bg.png"
@@ -23,7 +32,6 @@ export default function Home() {
             <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/20 to-transparent" />
           </div>
 
-          {/* Text content — left-aligned */}
           <div className="flex flex-col items-start text-left gap-6">
             <div className="flex flex-col gap-3">
               <h2 className="text-4xl font-bold tracking-tight text-white drop-shadow-md">
@@ -75,20 +83,16 @@ export default function Home() {
         </div>
 
         <div className="flex flex-col">
-          {[
-            {
-              slug: "#",
-              date: "Coming soon",
-              title: "First post on the way",
-              excerpt: "Notes on code, thinking, and craft — stay tuned.",
-            },
-          ].map((post) => (
+          {latestPosts.map((post) => (
             <article
-              key={post.slug}
+              key={post.slug + post.title}
               className="group flex flex-col gap-1 border-b border-zinc-900 py-6 first:pt-0"
             >
               <span className="text-[11px] text-zinc-600 tracking-widest uppercase">
-                {post.date}
+                {new Date(post.date).toLocaleDateString("en-US", {
+                  month: "short",
+                  year: "numeric",
+                })}
               </span>
               <Link href={post.slug}>
                 <h4 className="text-white font-medium group-hover:text-indigo-400 transition-colors">
@@ -116,26 +120,19 @@ export default function Home() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {[
-            {
-              slug: "#",
-              title: "Personal Website",
-              stack: "Next.js · Tailwind",
-              desc: "This site — built with Next.js 14 App Router and Tailwind CSS.",
-            },
-          ].map((project) => (
+          {latestProject.map((project) => (
             <Link
-              key={project.slug}
+              key={project.slug + project.title}
               href={project.slug}
               className="group flex flex-col gap-2 rounded-xl border border-zinc-800 p-5 hover:border-zinc-600 transition-colors"
             >
               <span className="text-[11px] text-zinc-600 tracking-widest uppercase">
-                {project.stack}
+                {project.tag}
               </span>
               <h4 className="text-white font-medium group-hover:text-indigo-400 transition-colors">
                 {project.title}
               </h4>
-              <p className="text-sm text-zinc-500">{project.desc}</p>
+              <p className="text-sm text-zinc-500">{project.excerpt}</p>
             </Link>
           ))}
         </div>
