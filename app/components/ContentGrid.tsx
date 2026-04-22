@@ -66,9 +66,9 @@ export default function ContentGrid({ items }: { items: ContentItem[] }) {
         onQueryChange={setRawQuery}
       />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div className="flex flex-col gap-3 w-full">
         {filtered.length === 0 ? (
-          <p className="col-span-full text-center py-16 text-zinc-600 text-sm">
+          <p className="text-center py-16 text-zinc-600 text-sm">
             No results found.
           </p>
         ) : (
