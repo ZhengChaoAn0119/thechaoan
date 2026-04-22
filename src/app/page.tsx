@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { allContent } from "@/lib/data";
+import ContentCard from "./components/ContentCard";
 
 const latestPosts = allContent
   .filter((item) => item.type === "blog" && item.date !== "coming-soon")
@@ -82,25 +83,9 @@ export default function Home() {
           </Link>
         </div>
 
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-3">
           {latestPosts.map((post) => (
-            <article
-              key={post.slug + post.title}
-              className="group flex flex-col gap-1 border-b border-zinc-900 py-6 first:pt-0"
-            >
-              <span className="text-[11px] text-zinc-600 tracking-widest uppercase">
-                {new Date(post.date).toLocaleDateString("en-US", {
-                  month: "short",
-                  year: "numeric",
-                })}
-              </span>
-              <Link href={post.slug}>
-                <h4 className="text-white font-medium group-hover:text-indigo-400 transition-colors">
-                  {post.title}
-                </h4>
-              </Link>
-              <p className="text-sm text-zinc-500">{post.excerpt}</p>
-            </article>
+            <ContentCard key={post.slug} item={post} />
           ))}
         </div>
       </section>
@@ -119,21 +104,9 @@ export default function Home() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="flex flex-col gap-3">
           {latestProject.map((project) => (
-            <Link
-              key={project.slug + project.title}
-              href={project.slug}
-              className="group flex flex-col gap-2 rounded-xl border border-zinc-800 p-5 hover:border-zinc-600 transition-colors"
-            >
-              <span className="text-[11px] text-zinc-600 tracking-widest uppercase">
-                {project.tag}
-              </span>
-              <h4 className="text-white font-medium group-hover:text-indigo-400 transition-colors">
-                {project.title}
-              </h4>
-              <p className="text-sm text-zinc-500">{project.excerpt}</p>
-            </Link>
+            <ContentCard key={project.slug} item={project} />
           ))}
         </div>
       </section>
