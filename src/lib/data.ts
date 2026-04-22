@@ -15,7 +15,7 @@ export const allContent: ContentItem[] = [
   // Blog posts
   {
     type: "blog",
-    slug: "#",
+    slug: "#1",
     title: "Getting Started with Next.js App Router",
     excerpt:
       "A deep dive into the App Router paradigm — layouts, server components, streaming, and how it changes the way you think about data fetching.",
@@ -25,7 +25,7 @@ export const allContent: ContentItem[] = [
   },
   {
     type: "blog",
-    slug: "#",
+    slug: "#2",
     title: "Tailwind CSS Design System Tips",
     excerpt:
       "How to use Tailwind effectively at scale: design tokens, component patterns, and avoiding the utility-class sprawl trap.",
@@ -35,7 +35,7 @@ export const allContent: ContentItem[] = [
   },
   {
     type: "blog",
-    slug: "#",
+    slug: "#3",
     title: "First Post on the Way",
     excerpt: "Notes on code, thinking, and craft — stay tuned.",
     date: "coming-soon",
@@ -45,7 +45,7 @@ export const allContent: ContentItem[] = [
   // Projects
   {
     type: "project",
-    slug: "#",
+    slug: "#4",
     title: "Personal Website",
     excerpt:
       "This site — built with Next.js App Router, Tailwind CSS, and MDX. A personal brand and portfolio platform.",
@@ -55,7 +55,7 @@ export const allContent: ContentItem[] = [
   },
   {
     type: "project",
-    slug: "#",
+    slug: "#5",
     title: "Portfolio v1",
     excerpt:
       "The first iteration of my portfolio, built with plain React and CSS Modules. A learning exercise in component architecture.",
