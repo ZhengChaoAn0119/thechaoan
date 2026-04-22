@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { allTechCategories } from "../components/tech";
+import { allTechCategories } from "../../components/tech";
 
 export const metadata: Metadata = {
   title: "About Me | ChaoAn Zheng",

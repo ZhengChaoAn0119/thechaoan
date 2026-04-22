@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import Link from "next/link"; // 引入 Next.js 的連結組件
-import Image from "next/image"; // 引入 Next.js 的圖片組件
-import NavLink from "./components/NavLink";
-import "./globals.css";
+import Link from "next/link";
+import Image from "next/image";
+import NavLink from "../components/NavLink";
+import { getT } from "@/lib/i18n";
+import "../globals.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,22 +21,25 @@ export const metadata: Metadata = {
   description: "Personal website of ChaoAn",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode;
+  params: Promise<{ locale: string }>;
 }>) {
+  const { locale } = await params;
+  const t = getT(locale);
+
   return (
     <html
-      lang="en"
+      lang={locale}
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-black text-white">
-        {/* --- 第一部分：品牌與社群 (Upper Tier) --- */}
         <header className="w-full border-b border-zinc-900">
           <div className="max-w-1xl mx-auto px-6 py-5 flex items-center justify-between">
-            {/* 左側：頭像或品牌圖 (暫用佔位圓圈) */}
-            <Link href="/" className="group">
+            <Link href={`/${locale}`} className="group">
               <div className="w-10 h-10 relative rounded-full overflow-hidden transition-all">
                 <Image
                   src="/avatar.png"
@@ -46,39 +50,44 @@ export default function RootLayout({
               </div>
             </Link>
 
-            {/* 中間：網頁標題 (Dan Koe 風格通常是大寫、字距寬) */}
-            <Link href="/">
+            <Link href={`/${locale}`}>
               <h1 className="text-sm font-bold tracking-[0.3em] uppercase">
                 ChaoAn Zheng
               </h1>
             </Link>
 
-            {/* 右側：社群 Icon 佔位 (可之後換成 react-icons) */}
             <div className="flex gap-4 text-zinc-500">
-              <span className="cursor-pointer hover:text-white transition-colors text-xs">TW</span>
-              <span className="cursor-pointer hover:text-white transition-colors text-xs">EN</span>
+              <Link
+                href="/zh-TW"
+                className={`text-xs transition-colors hover:text-white ${locale === "zh-TW" ? "text-white" : ""}`}
+              >
+                TW
+              </Link>
+              <Link
+                href="/en"
+                className={`text-xs transition-colors hover:text-white ${locale === "en" ? "text-white" : ""}`}
+              >
+                EN
+              </Link>
             </div>
           </div>
 
-          {/* --- 第二部分：導航選單 (Lower Tier) --- */}
           <nav className="w-full border-t border-zinc-900/50">
             <ul className="flex justify-center items-end gap-10 py-4">
-              <li><NavLink href="/" label="Home" /></li>
-              <li><NavLink href="/aboutme" label="About me" /></li>
-              <li><NavLink href="/blog" label="blog" /></li>
-              <li><NavLink href="/projects" label="Projects" /></li>
+              <li><NavLink href={`/${locale}`} label={t("nav.home")} /></li>
+              <li><NavLink href={`/${locale}/aboutme`} label={t("nav.about")} /></li>
+              <li><NavLink href={`/${locale}/blog`} label={t("nav.blog")} /></li>
+              <li><NavLink href={`/${locale}/projects`} label={t("nav.projects")} /></li>
             </ul>
           </nav>
         </header>
 
-        {/* 主要內容區 */}
         <main className="flex-1">
           {children}
         </main>
 
-        {/* 頁尾 (可選) */}
         <footer className="py-10 text-center text-zinc-600 text-[10px] tracking-widest uppercase">
-          © 2026 ChaoAn Zheng — Built with Next.js
+          © 2026 ChaoAn Zheng — {t("footer.credit")}
         </footer>
       </body>
     </html>
