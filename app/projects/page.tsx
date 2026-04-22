@@ -30,7 +30,7 @@ const projects: ContentItem[] = [
 
 export default function ProjectsPage() {
   return (
-    <div className="w-full max-w-5xl mx-auto px-6 py-16 flex flex-col gap-12">
+    <div className="w-full max-w-2xl mx-auto px-6 py-16 flex flex-col gap-12">
       {/* Title */}
       <div className="flex flex-col gap-3">
         <p className="text-[11px] font-semibold tracking-[0.2em] uppercase text-zinc-400">
