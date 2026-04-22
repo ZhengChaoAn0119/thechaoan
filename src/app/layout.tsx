@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link"; // 引入 Next.js 的連結組件
+import Image from "next/image"; // 引入 Next.js 的圖片組件
 import NavLink from "./components/NavLink";
 import "./globals.css";
 
@@ -32,10 +33,17 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-black text-white">
         {/* --- 第一部分：品牌與社群 (Upper Tier) --- */}
         <header className="w-full border-b border-zinc-900">
-          <div className="max-w-4xl mx-auto px-6 py-5 flex items-center justify-between">
+          <div className="max-w-1xl mx-auto px-6 py-5 flex items-center justify-between">
             {/* 左側：頭像或品牌圖 (暫用佔位圓圈) */}
             <Link href="/" className="group">
-              <div className="w-10 h-10 bg-zinc-800 rounded-full transition-all group-hover:ring-2 group-hover:ring-zinc-600" />
+              <div className="w-10 h-10 relative rounded-full overflow-hidden transition-all">
+                <Image
+                  src="/avatar.png"
+                  alt="ChaoAn's Avatar"
+                  fill
+                  className="object-cover"
+                />
+              </div>
             </Link>
 
             {/* 中間：網頁標題 (Dan Koe 風格通常是大寫、字距寬) */}
