@@ -15,6 +15,7 @@ const posts: ContentItem[] = [
     excerpt:
       "A deep dive into the App Router paradigm — layouts, server components, streaming, and how it changes the way you think about data fetching.",
     date: "2026-04-10",
+    image: "/error404.png",
     tag: "Next.js",
     featured: false,
   },
