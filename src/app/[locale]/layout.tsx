@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
 import Image from "next/image";
 import NavLink from "../components/NavLink";
+import LanguageSwitch from "../components/LanguageSwitch";
 import { getT } from "@/lib/i18n";
 import "../globals.css";
 
@@ -56,20 +57,7 @@ export default async function RootLayout({
               </h1>
             </Link>
 
-            <div className="flex gap-4 text-zinc-500">
-              <Link
-                href="/zh-TW"
-                className={`text-xs transition-colors hover:text-white ${locale === "zh-TW" ? "text-white" : ""}`}
-              >
-                TW
-              </Link>
-              <Link
-                href="/en"
-                className={`text-xs transition-colors hover:text-white ${locale === "en" ? "text-white" : ""}`}
-              >
-                EN
-              </Link>
-            </div>
+            <LanguageSwitch locale={locale} />
           </div>
 
           <nav className="w-full border-t border-zinc-900/50">
