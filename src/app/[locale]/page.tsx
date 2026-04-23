@@ -92,7 +92,7 @@ export default async function Home({
 
         <div className="flex flex-col gap-3">
           {latestPosts.map((post) => (
-            <ContentCard key={post.slug} item={post} />
+            <ContentCard key={post.slug} item={post} locale={locale} />
           ))}
         </div>
       </section>
@@ -113,7 +113,7 @@ export default async function Home({
 
         <div className="flex flex-col gap-3">
           {latestProject.map((project) => (
-            <ContentCard key={project.slug} item={project} />
+            <ContentCard key={project.slug} item={project} locale={locale} />
           ))}
         </div>
       </section>

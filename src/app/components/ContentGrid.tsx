@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo, useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams, useParams } from "next/navigation";
 import { useDebounce } from "../hooks/useDebounce";
 import FilterBar from "./FilterBar";
 import ContentCard from "./ContentCard";
@@ -14,6 +14,7 @@ type Tab = "latest" | "top";
 export default function ContentGrid({ items }: { items: ContentItem[] }) {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { locale } = useParams<{ locale: string }>();
 
   const initialTab = (searchParams.get("tab") ?? "latest") as Tab;
   const initialQuery = searchParams.get("q") ?? "";
@@ -65,7 +66,7 @@ export default function ContentGrid({ items }: { items: ContentItem[] }) {
             No results found.
           </p>
         ) : (
-          filtered.map((item) => <ContentCard key={item.slug} item={item} />)
+          filtered.map((item) => <ContentCard key={item.slug} item={item} locale={locale} />)
         )}
       </div>
     </div>

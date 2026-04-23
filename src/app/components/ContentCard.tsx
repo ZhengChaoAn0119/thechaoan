@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { ContentItem } from "@/lib/data";
 
-export default function ContentCard({ item }: { item: ContentItem }) {
+export default function ContentCard({ item, locale }: { item: ContentItem; locale: string }) {
   const displayDate =
     item.date === "coming-soon"
       ? "Coming soon"
@@ -11,9 +11,12 @@ export default function ContentCard({ item }: { item: ContentItem }) {
         year: "numeric",
       });
 
+  const section = item.type === "blog" ? "blog" : "projects";
+  const href = item.slug ? `/${locale}/${section}/${item.slug}` : "#";
+
   return (
     <Link
-      href={item.slug}
+      href={href}
       className="group flex flex-row items-center gap-4 w-full rounded-xl border border-zinc-200 overflow-hidden hover:border-zinc-600 transition-all hover:shadow-md p-4"
     >
       {/* Body */}
