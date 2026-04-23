@@ -17,14 +17,13 @@ export default function LanguageSwitch({ locale }: { locale: string }) {
   }
 
   return (
-    <div className="flex gap-4 text-zinc-500">
+    <div className="flex gap-4 text-zinc-300">
       {locales.map((l) => (
         <Link
           key={l}
           href={buildHref(l)}
-          className={`text-xs transition-colors hover:text-white ${
-            locale === l ? "text-white" : ""
-          }`}
+          className={`text-xs transition-colors hover:text-black ${locale === l ? "text-black" : ""
+            }`}
         >
           {labels[l]}
         </Link>

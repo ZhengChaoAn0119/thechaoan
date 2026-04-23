@@ -57,7 +57,19 @@ export default async function RootLayout({
               </h1>
             </Link>
 
-            <LanguageSwitch locale={locale} />
+            <div className="flex items-center gap-4">
+              <Link href="https://github.com/ZhengChaoAn0119" target="_blank" rel="noopener noreferrer">
+                <div className="w-8 h-8 relative rounded-full overflow-hidden transition-all">
+                  <Image
+                    src="/github-icon.png"
+                    alt="GitHub"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              </Link>
+              <LanguageSwitch locale={locale} />
+            </div>
           </div>
 
           <nav className="w-full border-t border-zinc-900/50">
