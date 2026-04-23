@@ -1,0 +1,32 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About Me",
+    "blog": "Blog",
+    "projects": "Projects"
+  },
+  "about": {
+    "one": "I am Chaoan Zheng from Taoyuan, Taiwan. I have a background in architecture design with strong structured thinking and execution under pressure.",
+    "two": "Currently focused on software engineering, primarily using Python to develop computer vision and systems development skills, and practicing the AI development process (data processing, model training, application) through image recognition projects.",
+    "three": "Values technical principles and practical implementation, able to choose the right tools to solve problems based on needs.",
+    "four": "Looking to deepen Computer Vision / NLP and extend into Full-stack and Cloud in the future."
+  },
+  "home": {
+    "hero_name": "ChaoAn Zheng",
+    "hero_subtitle": "Developer & lifelong learner. Writing about code, systems thinking, and building things that matter.",
+    "building_in_public": "— building in public —",
+    "cta_projects": "View Projects",
+    "cta_about": "About Me",
+    "section_writing": "Latest Writing",
+    "section_projects": "Projects",
+    "view_all": "View all →"
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Notes on code, systems thinking, and the craft of building things."
+  },
+  "projects": {
+    "title": "Projects",
+    "subtitle": "Things I've built — side projects, experiments, and work that matters."
+  }
+}

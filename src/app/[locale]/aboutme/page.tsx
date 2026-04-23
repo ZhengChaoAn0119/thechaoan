@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getT } from "@/lib/i18n";
 import { allTechCategories } from "../../components/tech";
 
 export const metadata: Metadata = {
@@ -6,7 +7,14 @@ export const metadata: Metadata = {
   description: "Learn more about ChaoAn Zheng — developer, lifelong learner, building in public.",
 };
 
-export default function AboutPage() {
+export default async function AboutPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = getT(locale);
+
   return (
     <div className="w-full max-w-2xl mx-auto px-6 py-16 flex flex-col gap-12">
 
@@ -15,18 +23,10 @@ export default function AboutPage() {
         <p className="text-[11px] text-zinc-600 tracking-[0.25em] uppercase">
           — who I am —
         </p>
-        <p className="text-zinc-400 leading-relaxed">
-          I am Chaoan Zheng from Taoyuan, Taiwan. I have a background in architecture design with strong structured thinking and execution under pressure.
-        </p>
-        <p className="text-zinc-400 leading-relaxed">
-          Focused on software engineering with Python, developing skills in computer vision and system development. Currently building image recognition projects covering data processing, model training, and deployment workflows.
-        </p>
-        <p className="text-zinc-400 leading-relaxed">
-          Adaptable in choosing technologies based on problem requirements.
-        </p>
-        <p className="text-zinc-400 leading-relaxed">
-          Future focus: Computer Vision, NLP, Full-stack, Cloud.
-        </p>
+        <p className="text-zinc-400 leading-relaxed">{t("about.one")}</p>
+        <p className="text-zinc-400 leading-relaxed">{t("about.two")}</p>
+        <p className="text-zinc-400 leading-relaxed">{t("about.three")}</p>
+        <p className="text-zinc-400 leading-relaxed">{t("about.four")}</p>
       </section>
 
       {/* ── Stack ────────────────────────────────────────────── */}
@@ -64,9 +64,7 @@ export default function AboutPage() {
         >
           Contact
         </h2>
-        <p className="text-sm text-zinc-400">
-          Chat me.
-        </p>
+        <p className="text-sm text-zinc-400">Chat me.</p>
         <a
           href="mailto:ai6ru6boy@gmail.com"
           className="self-start text-sm text-indigo-400 hover:text-indigo-300 transition-colors"

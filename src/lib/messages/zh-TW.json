@@ -1,0 +1,32 @@
+{
+  "nav": {
+    "home": "首頁",
+    "about": "關於我",
+    "blog": "文章",
+    "projects": "開發作品"
+  },
+  "about": {
+    "one": "來自台灣桃園，建築設計背景，具備結構化思維與高壓環境執行力。",
+    "two": "目前專注於軟體工程，主要使用 Python，發展電腦視覺與系統開發能力，並透過影像辨識專案實踐 AI 開發流程（資料處理、模型訓練、應用）。",
+    "three": "重視技術原理與實務落地，能依需求選擇合適工具解決問題。",
+    "four": "未來將深化 Computer Vision / NLP，並延伸至 Full-stack 與 Cloud。"
+  },
+  "home": {
+    "hero_name": "鄭朝安",
+    "hero_subtitle": "開發者與終身學習者。記錄程式、思考與值得分享的事物。",
+    "building_in_public": "— 公開建造中 —",
+    "cta_projects": "查看作品",
+    "cta_about": "關於我",
+    "section_writing": "最新文章",
+    "section_projects": "開發作品",
+    "view_all": "查看全部 →"
+  },
+  "blog": {
+    "title": "部落格",
+    "subtitle": "關於觸碰到我身邊，思維與事物的筆記。"
+  },
+  "projects": {
+    "title": "開發作品",
+    "subtitle": "忙碌之後——副項目、有趣與有意義的工具。"
+  }
+}

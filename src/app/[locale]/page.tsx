@@ -28,7 +28,7 @@ export default async function Home({
 
       {/* ── Hero ─────────────────────────────────────────────── */}
       <section className="w-full lg:w-2/3 mx-auto px-6 pt-6 pb-10">
-        <div className="relative w-full overflow-hidden rounded-2xl px-8 py-16 sm:px-20">
+        <div className="relative w-full overflow-hidden rounded-2xl px-8 sm:px-20 h-92 flex items-center">
 
           <div className="absolute inset-0 -z-10">
             <Image
@@ -46,7 +46,7 @@ export default async function Home({
               <h2 className="text-4xl font-bold tracking-tight text-white drop-shadow-md">
                 {t("home.hero_name")}
               </h2>
-              <p className="text-lg text-zinc-300 leading-relaxed max-w-sm drop-shadow-sm">
+              <p className="text-lg text-zinc-300 leading-relaxed max-w-sm drop-shadow-sm ">
                 {t("home.hero_subtitle")}
               </p>
             </div>

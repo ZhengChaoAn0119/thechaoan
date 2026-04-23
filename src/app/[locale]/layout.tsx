@@ -87,7 +87,7 @@ export default async function RootLayout({
         </main>
 
         <footer className="py-10 text-center text-zinc-600 text-[10px] tracking-widest uppercase">
-          © 2026 ChaoAn Zheng — {t("footer.credit")}
+          © 2026 ChaoAn Zheng — Built with Next.js
         </footer>
       </body>
     </html>
