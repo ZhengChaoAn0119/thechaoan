@@ -7,6 +7,7 @@ RUN corepack enable && pnpm i --frozen-lockfile
 # --- Stage 2: Builder ---
 FROM node:20-alpine AS builder
 WORKDIR /app
+RUN corepack enable
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 # 重要：先生成內容資料，再進行 Next.js build
