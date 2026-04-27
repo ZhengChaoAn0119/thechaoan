@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "contentlayer2 dev & next dev",
+    "clean": "npx rimraf .contentlayer .next",
+    "dev": "contentlayer2 build && next dev",
     "build": "contentlayer2 build && next build",
     "start": "next start",
-    "lint": "eslint",
-    "prebuild": "contentlayer2 build"
+    "lint": "eslint"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.7",

@@ -1,3 +1,5 @@
+import { allPosts } from "contentlayer/generated";
+
 export type ContentType = "blog" | "project";
 
 export type ContentItem = {
@@ -11,36 +13,16 @@ export type ContentItem = {
   type: ContentType;
 };
 
-export const allContent: ContentItem[] = [
-  // Blog posts
-  {
-    type: "blog",
-    slug: "5am-project",
-    title: "5AM Project",
-    excerpt: "為什麼早晨是唯一屬於自己的時間，以及如何善用它。",
-    date: "2025-08-29",
-    tag: "Productivity",
-    featured: true,
-  },
-  {
-    type: "blog",
-    slug: "api-gateway",
-    title: "API Gateway",
-    excerpt: "AWS API Gateway 的路由、授權與整合概念整理。",
-    date: "2025-11-02",
-    tag: "AWS",
-    featured: false,
-  },
-  {
-    type: "blog",
-    slug: "bbdbuy-borrow-die",
-    title: "BBD (Buy, Borrow, Die)",
-    excerpt: "透過購買升值資產、抵押借款、傳承繼承來合法規避資本利得稅的策略。",
-    date: "2025-09-07",
-    tag: "Finance",
-    featured: false,
-  },
-  // Projects
+const blogContent: ContentItem[] = allPosts.map((post) => ({
+  type: "blog",
+  slug: post.slug,
+  title: post.title,
+  excerpt: post.excerpt ?? "",
+  date: post.date ?? "coming-soon",
+  tag: post.tag ?? "Uncategorised",
+}));
+
+const projectContent: ContentItem[] = [
   {
     type: "project",
     slug: "#4",
@@ -62,3 +44,5 @@ export const allContent: ContentItem[] = [
     featured: false,
   },
 ];
+
+export const allContent: ContentItem[] = [...blogContent, ...projectContent];
