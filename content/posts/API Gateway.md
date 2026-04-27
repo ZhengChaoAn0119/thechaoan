@@ -1,6 +1,8 @@
 ---
 up: "[[AWS_MAP]]"
 date: 2025-11-02
+tag: AWS
+excerpt: AWS API Gateway 的路由、授權與整合概念整理。
 ---
 ![[Screenshot 2025-10-28 141819 1.png]]
 - API Gateway
