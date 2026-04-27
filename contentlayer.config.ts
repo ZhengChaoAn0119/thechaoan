@@ -8,7 +8,6 @@ export const Post = defineDocumentType(() => ({
     date:    { type: "string" },
     tag:     { type: "string" },
     excerpt: { type: "string" },
-    slug:    { type: "string" },
     up:      { type: "string" },
     aliases: { type: "list", of: { type: "string" } },
   },

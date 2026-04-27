@@ -16,7 +16,7 @@ export type ContentItem = {
 const blogContent: ContentItem[] = allPosts.map((post) => ({
   type: "blog",
   slug: post.slug,
-  title: post.title,
+  title: post.title ?? "",
   excerpt: post.excerpt ?? "",
   date: post.date ?? "coming-soon",
   tag: post.tag ?? "Uncategorised",
