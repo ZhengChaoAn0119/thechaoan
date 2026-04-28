@@ -1,0 +1,57 @@
+substitutions:
+  _CONTENT_BUCKET: thechaoan-md-bucket
+  _REGION: asia-east1
+  _SERVICE_NAME: thechaoan-blog
+  _AR_HOST: asia-east1-docker.pkg.dev
+  _REPO: my-repo
+  _IMAGE_NAME: blog-frontend
+
+steps:
+  - name: 'gcr.io/cloud-builders/gsutil'
+    id: sync-posts
+    args: ['-m', 'rsync', '-r', '-d',
+           'gs://${_CONTENT_BUCKET}/posts/', 'content/posts/']
+
+  - name: 'gcr.io/cloud-builders/gsutil'
+    id: sync-images
+    args: ['-m', 'rsync', '-r', '-d',
+           'gs://${_CONTENT_BUCKET}/images/', 'public/images/']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    id: docker-build
+    waitFor: ['sync-posts', 'sync-images']
+    args:
+      - 'build'
+      - '-t'
+      - '${_AR_HOST}/$PROJECT_ID/${_REPO}/${_IMAGE_NAME}:$BUILD_ID'
+      - '-t'
+      - '${_AR_HOST}/$PROJECT_ID/${_REPO}/${_IMAGE_NAME}:latest'
+      - '.'
+
+  - name: 'gcr.io/cloud-builders/docker'
+    id: docker-push
+    waitFor: ['docker-build']
+    args: ['push', '--all-tags',
+           '${_AR_HOST}/$PROJECT_ID/${_REPO}/${_IMAGE_NAME}']
+
+  - name: 'gcr.io/cloud-builders/gcloud'
+    id: cloud-run-deploy
+    waitFor: ['docker-push']
+    args:
+      - 'run'
+      - 'deploy'
+      - '${_SERVICE_NAME}'
+      - '--image'
+      - '${_AR_HOST}/$PROJECT_ID/${_REPO}/${_IMAGE_NAME}:$BUILD_ID'
+      - '--region'
+      - '${_REGION}'
+      - '--platform'
+      - 'managed'
+      - '--quiet'
+
+images:
+  - '${_AR_HOST}/$PROJECT_ID/${_REPO}/${_IMAGE_NAME}:$BUILD_ID'
+  - '${_AR_HOST}/$PROJECT_ID/${_REPO}/${_IMAGE_NAME}:latest'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
