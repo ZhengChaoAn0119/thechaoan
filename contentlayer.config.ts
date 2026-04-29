@@ -4,7 +4,8 @@ import rehypePrettyCode from "rehype-pretty-code";
 
 function remarkObsidianImages() {
   return (tree: any) => {
-    visit(tree, "text", (node: any, index: number | null, parent: any) => {
+    visit(tree, (node: any, index: number | null, parent: any) => {
+      if (node.type !== "text" || typeof node.value !== "string") return;
       const pattern = /!?\[\[([^\]]+\.(png|jpg|jpeg|gif|webp|svg))\]\]/gi;
       if (!pattern.test(node.value)) return;
       pattern.lastIndex = 0;
