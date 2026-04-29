@@ -5,7 +5,7 @@
   "scripts": {
     "clean": "npx rimraf .contentlayer .next",
     "dev": "contentlayer2 build && next dev",
-    "dev:sync": "gsutil -m rsync -r gs://${CONTENT_BUCKET:-thechaoan-md-bucket}/posts/ content/posts/ && gsutil -m rsync -r gs://${CONTENT_BUCKET:-thechaoan-md-bucket}/images/ public/images/ && pnpm dev",
+    "dev:sync": "gsutil -m rsync -r gs://${CONTENT_BUCKET:-thechaoan-md-bucket}/posts/ content/posts/ && gsutil -m rsync -r gs://${CONTENT_BUCKET:-thechaoan-md-bucket}/images/ content/images/ && pnpm dev",
     "build": "contentlayer2 build && next build",
     "start": "next start",
     "lint": "eslint"

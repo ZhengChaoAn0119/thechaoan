@@ -14,8 +14,10 @@ steps:
 
   - name: 'gcr.io/cloud-builders/gsutil'
     id: sync-images
-    args: ['-m', 'rsync', '-r', '-d',
-           'gs://${_CONTENT_BUCKET}/images/', 'public/images/']
+    entrypoint: sh
+    args:
+      - '-c'
+      - 'mkdir -p content/images && gsutil -m rsync -r -d gs://${_CONTENT_BUCKET}/images/ content/images/'
 
   - name: 'gcr.io/cloud-builders/docker'
     id: docker-build

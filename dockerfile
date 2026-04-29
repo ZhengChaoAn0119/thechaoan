@@ -10,6 +10,7 @@ WORKDIR /app
 RUN corepack enable
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+RUN mkdir -p public/images && cp -r content/images/. public/images/
 # 重要：先生成內容資料，再進行 Next.js build
 RUN npx contentlayer2 build
 RUN pnpm build
