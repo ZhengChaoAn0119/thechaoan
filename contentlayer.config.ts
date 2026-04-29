@@ -1,4 +1,32 @@
 import { defineDocumentType, makeSource } from "contentlayer2/source-files";
+import { visit } from "unist-util-visit";
+import rehypePrettyCode from "rehype-pretty-code";
+
+function remarkObsidianImages() {
+  return (tree: any) => {
+    visit(tree, "text", (node: any, index: number | null, parent: any) => {
+      const pattern = /!?\[\[([^\]]+\.(png|jpg|jpeg|gif|webp|svg))\]\]/gi;
+      if (!pattern.test(node.value)) return;
+      pattern.lastIndex = 0;
+
+      const parts: any[] = [];
+      let lastIndex = 0;
+      let match: RegExpExecArray | null;
+
+      while ((match = pattern.exec(node.value)) !== null) {
+        if (match.index > lastIndex)
+          parts.push({ type: "text", value: node.value.slice(lastIndex, match.index) });
+        parts.push({ type: "image", url: `/images/${match[1]}`, alt: match[1], title: null });
+        lastIndex = match.index + match[0].length;
+      }
+      if (lastIndex < node.value.length)
+        parts.push({ type: "text", value: node.value.slice(lastIndex) });
+
+      if (parent && index !== null)
+        parent.children.splice(index, 1, ...parts);
+    });
+  };
+}
 
 export const Post = defineDocumentType(() => ({
   name: "Post",
@@ -35,4 +63,8 @@ export default makeSource({
   contentDirPath: "content",
   documentTypes: [Post],
   disableImportAliasWarning: true,
+  markdown: {
+    remarkPlugins: [remarkObsidianImages],
+    rehypePlugins: [[rehypePrettyCode, { theme: "one-dark-pro" }]],
+  },
 });
