@@ -1,10 +1,10 @@
 import { defineDocumentType, makeSource } from "contentlayer2/source-files";
-import { visit } from "unist-util-visit";
+import { visit, SKIP } from "unist-util-visit";
 import rehypePrettyCode from "rehype-pretty-code";
 
 function remarkObsidianImages() {
   return (tree: any) => {
-    visit(tree, (node: any, index: number | null, parent: any) => {
+    visit(tree, (node: any, index: number | undefined, parent: any) => {
       if (node.type !== "text" || typeof node.value !== "string") return;
       const pattern = /!?\[\[([^\]]+\.(png|jpg|jpeg|gif|webp|svg))\]\]/gi;
       if (!pattern.test(node.value)) return;
@@ -23,8 +23,10 @@ function remarkObsidianImages() {
       if (lastIndex < node.value.length)
         parts.push({ type: "text", value: node.value.slice(lastIndex) });
 
-      if (parent && index !== null)
+      if (parent && index !== undefined) {
         parent.children.splice(index, 1, ...parts);
+        return [SKIP, index + parts.length];
+      }
     });
   };
 }
