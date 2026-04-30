@@ -1,36 +1,103 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# thechaoan — 個人品牌網站
 
-## Getting Started
+個人作品集與技術部落格，以 Next.js App Router 建構，支援繁體中文與英文雙語，部署於 Google Cloud Run。
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 技術架構
+
+| 類別 | 技術 |
+|------|------|
+| 框架 | Next.js 16 (App Router) |
+| 前端 | React 19、Tailwind CSS v4、Lucide React |
+| 內容管理 | Contentlayer2、Markdown (.md) |
+| 語法高亮 | rehype-pretty-code + Shiki (one-dark-pro 主題) |
+| 國際化 | 自製 i18n（繁體中文 / English） |
+| 套件管理 | pnpm |
+| 容器化 | Docker (multi-stage build) |
+| CI/CD | Google Cloud Build |
+| 雲端部署 | Google Cloud Run（asia-east1）|
+| 內容儲存 | Google Cloud Storage (`thechaoan-md-bucket`) |
+
+---
+
+## 功能特色
+
+- **雙語支援**：繁體中文（預設）與英文，路由以 `[locale]` 分段切換
+- **部落格**：Markdown 文章由 GCS 同步至建置環境，支援 Obsidian wiki 圖片語法（`![[filename.png]]`）
+- **自動 CI/CD**：GCS 內容變更 → Pub/Sub → Cloud Build → Artifact Registry → Cloud Run 全自動部署
+- **Standalone 輸出**：Docker 映像僅打包執行所需最小檔案
+
+---
+
+## 目錄結構
+
+```
+thechaoan/
+├── content/
+│   ├── posts/          # Markdown 文章（由 GCS 同步）
+│   └── images/         # 部落格圖片（由 GCS 同步）
+├── public/             # 靜態資源（avatar、icon 等）
+├── src/
+│   ├── app/
+│   │   ├── [locale]/   # 多語系路由（en / zh-TW）
+│   │   │   ├── blog/       # 文章列表與詳細頁
+│   │   │   ├── projects/   # 作品集
+│   │   │   └── aboutme/    # 關於我
+│   │   ├── components/ # 共用元件
+│   │   └── globals.css
+│   └── lib/
+│       ├── data.ts     # 內容資料整合
+│       ├── i18n.ts     # 國際化工具
+│       └── messages/   # en.json、zh-TW.json
+├── contentlayer.config.ts
+├── next.config.ts      # 本地開發（Turbopack + Contentlayer）
+├── next.config.js      # Cloud Run 部署（standalone output）
+├── Dockerfile
+└── cloudbuild.yaml
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 內容管理
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+文章與圖片以 GCS 為唯一來源：
 
-## Learn More
+| GCS 路徑 | 本地路徑 | 說明 |
+|----------|----------|------|
+| `gs://thechaoan-md-bucket/posts/` | `content/posts/` | Markdown 文章 |
+| `gs://thechaoan-md-bucket/images/` | `content/images/` | 部落格圖片 |
 
-To learn more about Next.js, take a look at the following resources:
+圖片在 Docker 建置時會複製至 `public/images/`，由 Next.js 以 `/images/filename` 對外提供服務。
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## CI/CD 流程
 
-## Deploy on Vercel
+```
+上傳 .md / 圖片至 GCS
+        ↓
+  Pub/Sub 通知
+        ↓
+  Cloud Build 觸發
+        ↓
+  gsutil rsync（同步 posts + images）
+        ↓
+  docker build（多階段建置）
+        ↓
+  推送至 Artifact Registry
+        ↓
+  gcloud run deploy（asia-east1）
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Cloud Build 設定檔：[`cloudbuild.yaml`](./cloudbuild.yaml)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 設定說明
+
+| 檔案 | 用途 |
+|------|------|
+| `next.config.ts` | 本地開發，啟用 Turbopack 與 Contentlayer |
+| `next.config.js` | Cloud Run 部署，輸出 standalone 模式 |
+
+> 兩個設定檔並存是刻意設計，請勿合併或刪除任一檔案。
