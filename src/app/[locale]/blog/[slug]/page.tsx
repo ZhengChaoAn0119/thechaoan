@@ -34,13 +34,13 @@ export default async function BlogPostPage({
         <span className="text-[10px] text-indigo-400 tracking-[0.2em] uppercase">
           {post.tag ?? "Post"}
         </span>
-        <h1 className="text-4xl font-bold text-white">{post.title}</h1>
+        <h1 className="text-4xl font-bold text-zinc-900">{post.title}</h1>
         <span className="text-[10px] text-zinc-600 tracking-widest uppercase">
           {post.date}
         </span>
       </header>
       <div
-        className="prose prose-invert prose-sm max-w-none"
+        className="prose prose-sm max-w-none"
         dangerouslySetInnerHTML={{ __html: post.body.html }}
       />
     </article>
