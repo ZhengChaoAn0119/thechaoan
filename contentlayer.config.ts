@@ -35,12 +35,13 @@ export const Post = defineDocumentType(() => ({
   name: "Post",
   filePathPattern: "posts/**/*.md",
   fields: {
-    title:   { type: "string" },
-    date:    { type: "string" },
-    tag:     { type: "string" },
-    excerpt: { type: "string" },
-    up:      { type: "string" },
-    aliases: { type: "list", of: { type: "string" } },
+    title:    { type: "string" },
+    date:     { type: "string" },
+    tag:      { type: "string" },
+    excerpt:  { type: "string" },
+    up:       { type: "string" },
+    aliases:  { type: "list", of: { type: "string" } },
+    category: { type: "string" },
   },
   computedFields: {
     slug: {
