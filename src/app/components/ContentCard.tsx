@@ -11,12 +11,15 @@ export default function ContentCard({ item, locale }: { item: ContentItem; local
         year: "numeric",
       });
 
-  const section = item.type === "blog" ? "blog" : "projects";
-  const href = item.slug ? `/${locale}/${section}/${item.slug}` : "#";
+  const href = item.url ?? (item.type === "blog"
+    ? `/${locale}/blog/${item.slug}`
+    : `/${locale}/projects/${item.slug}`);
+  const isExternal = item.url?.startsWith("http");
 
   return (
     <Link
       href={href}
+      {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
       className="group flex flex-row items-center gap-4 w-full rounded-xl border border-zinc-200 overflow-hidden hover:border-zinc-600 transition-all hover:shadow-md p-4"
     >
       {/* Body */}

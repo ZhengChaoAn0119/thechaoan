@@ -11,6 +11,7 @@ export type ContentItem = {
   tag: string;
   featured?: boolean;
   type: ContentType;
+  url?: string;
 };
 
 const blogContent: ContentItem[] = allPosts.map((post) => ({
@@ -25,23 +26,36 @@ const blogContent: ContentItem[] = allPosts.map((post) => ({
 const projectContent: ContentItem[] = [
   {
     type: "project",
-    slug: "#4",
+    slug: "personal-website",
     title: "Personal Website",
     excerpt:
-      "This site — built with Next.js App Router, Tailwind CSS, and MDX. A personal brand and portfolio platform.",
-    date: "2026-04-01",
+      "This site — built with Next.js App Router, Tailwind CSS. A personal brand and portfolio platform.",
+    date: "2026-05-01",
     tag: "Next.js · Tailwind",
     featured: true,
+    url: "https://github.com/ZhengChaoAn0119/thechaoan",
   },
   {
     type: "project",
-    slug: "#5",
-    title: "Portfolio v1",
+    slug: "ResNet18-34-Classes",
+    title: "ResNet18 34 Classes",
     excerpt:
-      "The first iteration of my portfolio, built with plain React and CSS Modules. A learning exercise in component architecture.",
-    date: "2026-01-15",
-    tag: "React",
-    featured: false,
+      "This project implements a Mahjong tile classification system using a fine-tuned ResNet18 model. The trained model achieves 97% accuracy on the validation set.",
+    date: "2026-03-01",
+    tag: "ResNet18 · PyTorch",
+    featured: true,
+    url: "https://github.com/ZhengChaoAn0119/Mahjong-Tile-Classification-with-ResNet18-34-Classes-",
+  },
+  {
+    type: "project",
+    slug: "Mahjong-Tile-yolo",
+    title: "Mahjong Tile YOLO",
+    excerpt:
+      "This Mahjong auxiliary tool automatically identifies Mahjong Soul hand tiles through screen screenshots.",
+    date: "2026-03-01",
+    tag: "YOLO · PyTorch",
+    featured: true,
+    url: "https://github.com/ZhengChaoAn0119/Mahjong-Tile-yolo",
   },
 ];
 
