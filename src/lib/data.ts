@@ -48,6 +48,17 @@ const projectContent: ContentItem[] = [
   },
   {
     type: "project",
+    slug: "Auto-Content-Farm",
+    title: "Auto Content Farm",
+    excerpt:
+      "Automates YouTube content generation by scraping PTT discussions, summarizing with Gemini AI, generating images via Imagen 3, and posting to YouTube community feeds — deployed on Google Cloud Run.",
+    date: "2026-05-04",
+    tag: "Python · Gemini · Cloud Run",
+    featured: true,
+    url: "https://github.com/ZhengChaoAn0119/Auto-Content-Farm",
+  },
+  {
+    type: "project",
     slug: "Mahjong-Tile-yolo",
     title: "Mahjong Tile YOLO",
     excerpt:
