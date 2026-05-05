@@ -1,6 +1,7 @@
 import { defineDocumentType, makeSource } from "contentlayer2/source-files";
 import { visit, SKIP } from "unist-util-visit";
 import rehypePrettyCode from "rehype-pretty-code";
+import rehypeSlug from "rehype-slug";
 
 function remarkObsidianImages() {
   return (tree: any) => {
@@ -44,6 +45,22 @@ export const Post = defineDocumentType(() => ({
     category: { type: "string" },
   },
   computedFields: {
+    headings: {
+      type: "json",
+      resolve: (doc) => {
+        const regex = /<h([1-6])[^>]*id="([^"]*)"[^>]*>([\s\S]*?)<\/h[1-6]>/g;
+        const result: { level: number; id: string; text: string }[] = [];
+        let match;
+        while ((match = regex.exec(doc.body.html)) !== null) {
+          result.push({
+            level: parseInt(match[1]),
+            id: match[2],
+            text: match[3].replace(/<[^>]+>/g, "").trim(),
+          });
+        }
+        return result;
+      },
+    },
     slug: {
       type: "string",
       resolve: (doc) =>
@@ -69,6 +86,6 @@ export default makeSource({
   disableImportAliasWarning: true,
   markdown: {
     remarkPlugins: [remarkObsidianImages],
-    rehypePlugins: [[rehypePrettyCode, { theme: "one-dark-pro" }]],
+    rehypePlugins: [rehypeSlug, [rehypePrettyCode, { theme: "one-dark-pro" }]],
   },
 });
