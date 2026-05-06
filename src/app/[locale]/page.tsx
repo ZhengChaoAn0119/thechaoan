@@ -1,9 +1,9 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { allContent } from "@/lib/data";
 import { getT } from "@/lib/i18n";
 import ContentCard from "../components/ContentCard";
+import HeroBackground from "../components/HeroBackground";
 
 const latestPosts = allContent
   .filter((item) => item.type === "blog" && item.date !== "coming-soon")
@@ -28,30 +28,21 @@ export default async function Home({
 
       {/* ── Hero ─────────────────────────────────────────────── */}
       <section className="w-full lg:w-2/3 mx-auto px-6 pt-6 pb-10">
-        <div className="relative w-full overflow-hidden rounded-2xl px-8 sm:px-20 h-92 flex items-center">
+        <div className="relative w-full overflow-hidden rounded-2xl px-8 sm:px-20 h-92 flex items-center isolate bg-indigo-50">
 
-          <div className="absolute inset-0 -z-10">
-            <Image
-              src="/hero-bg.png"
-              alt="Background"
-              fill
-              className="object-cover object-right opacity-50"
-              priority
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/20 to-transparent" />
-          </div>
+          <HeroBackground />
 
           <div className="flex flex-col items-start text-left gap-6">
             <div className="flex flex-col gap-3">
-              <h2 className="text-4xl font-bold tracking-tight text-white drop-shadow-md">
+              <h2 className="text-4xl font-bold tracking-tight text-zinc-900 drop-shadow-sm">
                 {t("home.hero_name")}
               </h2>
-              <p className="text-lg text-zinc-300 leading-relaxed max-w-sm drop-shadow-sm ">
+              <p className="text-lg text-zinc-600 leading-relaxed max-w-sm">
                 {t("home.hero_subtitle")}
               </p>
             </div>
 
-            <p className="text-[10px] text-zinc-400 tracking-[0.3em] uppercase">
+            <p className="text-[10px] text-zinc-500 tracking-[0.3em] uppercase">
               {t("home.building_in_public")}
             </p>
 
@@ -65,7 +56,7 @@ export default async function Home({
               </Link>
               <Link
                 href={`/${locale}/aboutme`}
-                className="flex items-center gap-2 px-6 py-3 rounded-full border border-zinc-700 bg-black/20 backdrop-blur-sm text-zinc-300 text-sm font-medium hover:border-zinc-500 hover:text-white transition-all"
+                className="flex items-center gap-2 px-6 py-3 rounded-full border border-indigo-200 bg-white/50 backdrop-blur-sm text-zinc-700 text-sm font-medium hover:border-indigo-400 hover:text-zinc-900 transition-all"
               >
                 {t("home.cta_about")}
                 <ArrowRight size={14} />

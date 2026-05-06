@@ -18,34 +18,39 @@ function GlassCube() {
     return () => window.removeEventListener("mousemove", onMove);
   }, []);
 
-  useFrame(() => {
+  useFrame((_, delta) => {
     if (!mesh.current) return;
-    mesh.current.rotation.y +=
-      (target.current.x * 0.8 - mesh.current.rotation.y) * 0.05;
+    // Y: constant slow spin, mouse X speeds it up or slows/reverses it
+    mesh.current.rotation.y += (0.25 + target.current.x * 1.2) * delta;
+    // X: tilt toward mouse Y position, damp back to level when idle
     mesh.current.rotation.x +=
-      (target.current.y * 0.8 - mesh.current.rotation.x) * 0.05;
+      (-target.current.y * 0.5 - mesh.current.rotation.x) * 0.04;
   });
 
   return (
-    <mesh ref={mesh}>
+    <mesh ref={mesh} position={[1.5, 0, 0]}>
       <boxGeometry args={[2, 2, 2]} />
       <MeshTransmissionMaterial
-        thickness={1}
-        roughness={0}
-        transmission={1}
-        ior={1.5}
-        chromaticAberration={0.02}
+        color="#c7d2fe"
+        thickness={0.3}
+        roughness={0.05}
+        transmission={0.96}
+        ior={1.45}
+        chromaticAberration={0.04}
+        backside
       />
     </mesh>
   );
 }
 
-export default function Test() {
+export default function HeroBackground() {
   return (
-    <div className="h-screen w-full">
+    <div className="absolute top-0 left-0 w-full h-full -z-10">
       <Canvas camera={{ position: [0, 0, 5] }}>
-        <ambientLight intensity={0.5} />
-        <directionalLight position={[5, 5, 5]} intensity={1} />
+        <color attach="background" args={["#eef2ff"]} />
+        <ambientLight intensity={1.2} />
+        <directionalLight position={[5, 5, 5]} intensity={2.5} />
+        <directionalLight position={[-3, 2, 1]} intensity={0.8} color="#a5b4fc" />
         <GlassCube />
       </Canvas>
     </div>
