@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { getT } from "@/lib/i18n";
 import { allTechCategories } from "../../components/tech";
 
@@ -64,14 +65,28 @@ export default async function AboutPage({
         >
           Contact
         </h2>
-        <p className="text-sm text-zinc-400">Chat me.</p>
-        <a
-          href="mailto:ai6ru6boy@gmail.com"
-          className="self-start text-sm text-indigo-400 hover:text-indigo-300 transition-colors"
-          aria-label="Send email to ChaoAn Zheng"
-        >
-          ai6ru6boy@gmail.com →
-        </a>
+        <div className="relative w-48 h-48 rounded-2xl overflow-hidden">
+          <Image
+            src="/avatar.png"
+            alt="ChaoAn Zheng"
+            fill
+            sizes="192px"
+            className="object-cover"
+          />
+        </div>
+
+        <div className="flex items-center gap-4">
+          <div className="flex flex-col gap-1">
+            <p className="text-sm text-zinc-400">Chat me.</p>
+            <a
+              href="mailto:ai6ru6boy@gmail.com"
+              className="self-start text-sm text-indigo-400 hover:text-indigo-300 transition-colors"
+              aria-label="Send email to ChaoAn Zheng"
+            >
+              ai6ru6boy@gmail.com →
+            </a>
+          </div>
+        </div>
       </section>
 
     </div>
