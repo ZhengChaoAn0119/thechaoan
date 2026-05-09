@@ -4,7 +4,10 @@ import Link from "next/link";
 import Image from "next/image";
 import NavLink from "../components/NavLink";
 import LanguageSwitch from "../components/LanguageSwitch";
+import LoginButton from "../components/LoginButton";
+import UserMenu from "../components/UserMenu";
 import { getT } from "@/lib/i18n";
+import { auth } from "@/auth";
 import "../globals.css";
 
 const geistSans = Geist({
@@ -31,6 +34,7 @@ export default async function RootLayout({
 }>) {
   const { locale } = await params;
   const t = getT(locale);
+  const session = await auth();
 
   return (
     <html
@@ -69,6 +73,9 @@ export default async function RootLayout({
                 </div>
               </Link>
               <LanguageSwitch locale={locale} />
+              {session?.user
+                ? <UserMenu user={session.user} locale={locale} />
+                : <LoginButton locale={locale} />}
             </div>
           </div>
 
