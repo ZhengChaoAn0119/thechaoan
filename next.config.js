@@ -1,5 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    output: 'standalone', // 這會將執行所需的最小檔案打包
+    output: 'standalone',
+    experimental: { serverExternalPackages: ["pg"] },
+    images: {
+        remotePatterns: [{ hostname: "lh3.googleusercontent.com" }],
+    },
 };
 export default nextConfig;
