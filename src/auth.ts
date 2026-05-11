@@ -1,13 +1,16 @@
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
+import PostgresAdapter from "@auth/pg-adapter";
+import { Pool } from "pg";
 
-// PostgresAdapter removed for local testing (JWT sessions, no DATABASE_URL needed).
-// Re-add once DATABASE_URL is available:
-//   import PostgresAdapter from "@auth/pg-adapter";
-//   import { Pool } from "pg";
-//   const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-//   adapter: PostgresAdapter(pool),
+// Pool is only created when DATABASE_URL is set (production / local PG).
+// Falls back to JWT sessions when DATABASE_URL is absent (local dev without PG).
+const pool = process.env.DATABASE_URL
+  ? new Pool({ connectionString: process.env.DATABASE_URL })
+  : undefined;
+
 export const { handlers, auth, signIn, signOut } = NextAuth({
+  ...(pool ? { adapter: PostgresAdapter(pool) } : {}),
   providers: [
     Google({
       clientId: process.env.AUTH_GOOGLE_ID ?? process.env.GOOGLE_CLIENT_ID,

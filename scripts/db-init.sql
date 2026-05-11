@@ -1,5 +1,6 @@
 -- Auth.js PostgreSQL adapter schema
--- Run this once against your Cloud SQL instance before first deploy
+-- Cloud SQL instance: thechaoan:asia-east1:pgsql-thechaoan, database: postgres
+-- Run this once against the instance before first deploy
 
 CREATE TABLE verification_token (
   identifier TEXT NOT NULL,

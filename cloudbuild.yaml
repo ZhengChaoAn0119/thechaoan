@@ -49,6 +49,10 @@ steps:
       - '${_REGION}'
       - '--platform'
       - 'managed'
+      - '--add-cloudsql-instances'
+      - 'thechaoan:asia-east1:pgsql-thechaoan'
+      - '--set-secrets'
+      - 'DATABASE_URL=DATABASE_URL:latest'
       - '--quiet'
 
 images:
