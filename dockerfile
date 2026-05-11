@@ -2,12 +2,12 @@
 FROM node:22-alpine AS deps
 WORKDIR /app
 COPY package.json pnpm-lock.yaml* ./
-RUN corepack enable && pnpm i --frozen-lockfile
+RUN corepack enable && corepack prepare pnpm@10.33.0 --activate && pnpm i --frozen-lockfile
 
 # --- Stage 2: Builder ---
 FROM node:22-alpine AS builder
 WORKDIR /app
-RUN corepack enable
+RUN corepack enable && corepack prepare pnpm@10.33.0 --activate
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN mkdir -p public/images && cp -r content/images/. public/images/
