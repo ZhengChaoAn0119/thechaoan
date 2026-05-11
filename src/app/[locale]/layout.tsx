@@ -34,7 +34,7 @@ export default async function RootLayout({
 }>) {
   const { locale } = await params;
   const t = getT(locale);
-  const session = await auth();
+  const session = await auth().catch(() => null);
 
   return (
     <html

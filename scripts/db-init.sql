@@ -2,19 +2,25 @@
 -- Cloud SQL instance: thechaoan:asia-east1:pgsql-thechaoan, database: postgres
 -- Run this once against the instance before first deploy
 
-CREATE TABLE verification_token (
-  identifier TEXT NOT NULL,
-  expires TIMESTAMPTZ NOT NULL,
-  token TEXT NOT NULL,
-  PRIMARY KEY (identifier, token)
+DROP TABLE IF EXISTS sessions;
+DROP TABLE IF EXISTS accounts;
+DROP TABLE IF EXISTS verification_token;
+DROP TABLE IF EXISTS users;
+
+CREATE TABLE users (
+  id TEXT NOT NULL PRIMARY KEY,
+  name TEXT,
+  email TEXT,
+  "emailVerified" TIMESTAMPTZ,
+  image TEXT
 );
 
 CREATE TABLE accounts (
   id SERIAL PRIMARY KEY,
-  "userId" INTEGER NOT NULL,
-  type VARCHAR(255) NOT NULL,
-  provider VARCHAR(255) NOT NULL,
-  "providerAccountId" VARCHAR(255) NOT NULL,
+  "userId" TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  type TEXT NOT NULL,
+  provider TEXT NOT NULL,
+  "providerAccountId" TEXT NOT NULL,
   refresh_token TEXT,
   access_token TEXT,
   expires_at BIGINT,
@@ -26,15 +32,14 @@ CREATE TABLE accounts (
 
 CREATE TABLE sessions (
   id SERIAL PRIMARY KEY,
-  "userId" INTEGER NOT NULL,
+  "userId" TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   expires TIMESTAMPTZ NOT NULL,
-  "sessionToken" VARCHAR(255) NOT NULL
+  "sessionToken" TEXT NOT NULL UNIQUE
 );
 
-CREATE TABLE users (
-  id SERIAL PRIMARY KEY,
-  name VARCHAR(255),
-  email VARCHAR(255),
-  "emailVerified" TIMESTAMPTZ,
-  image TEXT
+CREATE TABLE verification_token (
+  identifier TEXT NOT NULL,
+  expires TIMESTAMPTZ NOT NULL,
+  token TEXT NOT NULL,
+  PRIMARY KEY (identifier, token)
 );
