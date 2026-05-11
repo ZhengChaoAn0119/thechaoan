@@ -1,11 +1,11 @@
 # --- Stage 1: Dependencies ---
-FROM node:20-alpine AS deps
+FROM node:22-alpine AS deps
 WORKDIR /app
 COPY package.json pnpm-lock.yaml* ./
 RUN corepack enable && pnpm i --frozen-lockfile
 
 # --- Stage 2: Builder ---
-FROM node:20-alpine AS builder
+FROM node:22-alpine AS builder
 WORKDIR /app
 RUN corepack enable
 COPY --from=deps /app/node_modules ./node_modules
@@ -16,7 +16,7 @@ RUN npx contentlayer2 build
 RUN pnpm build
 
 # --- Stage 3: Runner ---
-FROM node:20-alpine AS runner
+FROM node:22-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 # Cloud Run 會自動注入 PORT 環境變數
