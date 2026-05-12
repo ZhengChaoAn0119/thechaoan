@@ -4,10 +4,9 @@ import Link from "next/link";
 import Image from "next/image";
 import NavLink from "../components/NavLink";
 import LanguageSwitch from "../components/LanguageSwitch";
-import LoginButton from "../components/LoginButton";
-import UserMenu from "../components/UserMenu";
+import AuthProvider from "../components/AuthProvider";
+import AuthHeader from "../components/AuthHeader";
 import { getT } from "@/lib/i18n";
-import { auth } from "@/auth";
 import "../globals.css";
 
 const geistSans = Geist({
@@ -34,7 +33,6 @@ export default async function RootLayout({
 }>) {
   const { locale } = await params;
   const t = getT(locale);
-  const session = await auth().catch(() => null);
 
   return (
     <html
@@ -42,6 +40,7 @@ export default async function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-black text-white">
+        <AuthProvider>
         <header className="w-full border-b border-zinc-900">
           <div className="max-w-1xl mx-auto px-6 py-5 flex items-center justify-between">
             <Link href={`/${locale}`} className="group">
@@ -73,9 +72,7 @@ export default async function RootLayout({
                 </div>
               </Link>
               <LanguageSwitch locale={locale} />
-              {session?.user
-                ? <UserMenu user={session.user} locale={locale} />
-                : <LoginButton locale={locale} />}
+              <AuthHeader locale={locale} />
             </div>
           </div>
 
@@ -96,6 +93,7 @@ export default async function RootLayout({
         <footer className="py-10 text-center text-zinc-600 text-[10px] tracking-widest uppercase">
           © 2026 ChaoAn Zheng — Built with Next.js
         </footer>
+        </AuthProvider>
       </body>
     </html>
   );

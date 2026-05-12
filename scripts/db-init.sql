@@ -43,3 +43,11 @@ CREATE TABLE verification_token (
   token TEXT NOT NULL,
   PRIMARY KEY (identifier, token)
 );
+
+CREATE TABLE IF NOT EXISTS comments (
+  id          SERIAL PRIMARY KEY,
+  slug        TEXT NOT NULL,
+  "userId"    TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  body        TEXT NOT NULL,
+  "createdAt" TIMESTAMPTZ NOT NULL DEFAULT now()
+);

@@ -2,6 +2,7 @@ import { allPosts } from "contentlayer/generated";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import TableOfContents from "@/app/components/TableOfContents";
+import CommentSection from "@/app/components/CommentSection";
 
 export async function generateStaticParams() {
   return allPosts.map((p) => ({ slug: p.slug }));
@@ -56,6 +57,7 @@ export default async function BlogPostPage({
           className="prose prose-sm max-w-none"
           dangerouslySetInnerHTML={{ __html: post.body.html }}
         />
+        <CommentSection slug={slug} />
       </article>
     </div>
   );
