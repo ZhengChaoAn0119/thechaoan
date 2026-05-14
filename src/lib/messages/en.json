@@ -28,5 +28,20 @@
   "projects": {
     "title": "Projects",
     "subtitle": "Things I've built — side projects, experiments, and work that matters."
+  },
+  "register": {
+    "title": "Create Account",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "submit": "Register",
+    "backToLogin": "Back to Login",
+    "successTitle": "Registration Successful",
+    "successMessage": "Your account has been created.",
+    "errorCaptcha": "Please complete the CAPTCHA.",
+    "errorPasswordMismatch": "Passwords do not match.",
+    "errorPasswordShort": "Password must be at least 8 characters.",
+    "errorEmailInvalid": "Please enter a valid email address.",
+    "errorGeneral": "Registration failed. Please try again."
   }
 }

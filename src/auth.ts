@@ -1,15 +1,13 @@
 import NextAuth from "next-auth";
-import PostgresAdapter from "@auth/pg-adapter";
-import { Pool } from "pg";
+import { FirestoreAdapter } from "@auth/firebase-adapter";
 import { authConfig } from "./auth.config";
+import { db } from "@/lib/firebase-admin";
 
-// Pool is only created when DATABASE_URL is set (production / local PG).
-// Falls back to JWT sessions when DATABASE_URL is absent (local dev without PG).
-const pool = process.env.DATABASE_URL
-  ? new Pool({ connectionString: process.env.DATABASE_URL })
-  : undefined;
+const useAdapter = db && process.env.USE_FIRESTORE_ADAPTER !== "false";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   ...authConfig,
-  ...(pool ? { adapter: PostgresAdapter(pool) } : {}),
+  ...(useAdapter
+    ? { adapter: FirestoreAdapter(db!), session: { strategy: "database" } }
+    : { session: { strategy: "jwt" } }),
 });
