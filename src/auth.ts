@@ -3,7 +3,7 @@ import { FirestoreAdapter } from "@auth/firebase-adapter";
 import { authConfig } from "./auth.config";
 import { db } from "@/lib/firebase-admin";
 
-const useAdapter = db && process.env.USE_FIRESTORE_ADAPTER !== "false";
+const useAdapter = db && process.env.USE_FIRESTORE_ADAPTER !== "True";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   ...authConfig,
