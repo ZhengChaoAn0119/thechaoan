@@ -1,12 +1,21 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 
-export default function AutoSubmitButton() {
-  const ref = useRef<HTMLButtonElement>(null);
+export default function AutoSubmitButton({
+  action,
+  redirectTo,
+}: {
+  action: () => Promise<void>;
+  redirectTo: string;
+}) {
   useEffect(() => {
-    const t = setTimeout(() => ref.current?.click(), 1500);
+    const t = setTimeout(async () => {
+      await action();
+      window.location.replace(redirectTo);
+    }, 1500);
     return () => clearTimeout(t);
-  }, []);
-  return <button ref={ref} type="submit" className="hidden" />;
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  return null;
 }

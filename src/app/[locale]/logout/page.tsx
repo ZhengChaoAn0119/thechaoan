@@ -10,7 +10,7 @@ export default async function LogoutPage({
 
   async function handleSignOut() {
     "use server";
-    await signOut({ redirectTo: `/${locale}` });
+    await signOut({ redirect: false });
   }
 
   return (
@@ -19,9 +19,7 @@ export default async function LogoutPage({
         <p className="text-zinc-400 text-xs tracking-widest uppercase">
           Signing out…
         </p>
-        <form action={handleSignOut}>
-          <AutoSubmitButton />
-        </form>
+        <AutoSubmitButton action={handleSignOut} redirectTo={`/${locale}`} />
       </div>
     </div>
   );

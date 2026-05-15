@@ -11,7 +11,7 @@ export default function LoginButton({ locale }: { locale: string }) {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="text-xs text-black hover:text-zinc-300 rounded px-3 py-1 transition-colors"
+        className="text-xs text-zinc-300 hover:text-white rounded px-3 py-1 transition-colors"
       >
         Login
       </button>
