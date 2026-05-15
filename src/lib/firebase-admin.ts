@@ -17,5 +17,5 @@ const app =
         })
     : null;
 
-export const db = app ? getFirestore(app) : null;
+export const db = app ? getFirestore(app, "thechaoan-firestore") : null;
 export default app;
