@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
-import { createUser } from "@/lib/firestore";
+import { createUser, getUserByEmail } from "@/lib/firestore";
 
 export async function POST(req: Request) {
   const { email, password, recaptchaToken } = await req.json();
@@ -19,6 +19,11 @@ export async function POST(req: Request) {
 
   if (!verifyData.success) {
     return NextResponse.json({ error: "CAPTCHA verification failed" }, { status: 400 });
+  }
+
+  const existing = await getUserByEmail(email);
+  if (existing) {
+    return NextResponse.json({ error: "EMAIL_TAKEN" }, { status: 409 });
   }
 
   const passwordHash = await bcrypt.hash(password, 10);

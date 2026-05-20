@@ -23,6 +23,7 @@ const messages = {
     errorPasswordShort: "Password must be at least 8 characters.",
     errorEmailInvalid: "Please enter a valid email address.",
     errorGeneral: "Registration failed. Please try again.",
+    errorEmailTaken: "This email is already registered.",
   },
   "zh-TW": {
     title: "建立帳號",
@@ -36,6 +37,7 @@ const messages = {
     errorPasswordShort: "密碼至少需 8 個字元。",
     errorEmailInvalid: "請輸入有效的電子郵件地址。",
     errorGeneral: "註冊失敗，請再試一次。",
+    errorEmailTaken: "此電子郵件已被註冊。",
   },
 } as const;
 
@@ -83,7 +85,9 @@ export default function RegisterForm({ locale }: Props) {
       });
       const data = await res.json();
       if (!res.ok) {
-        setError(data.error ?? t.errorGeneral);
+        const errorMessage =
+          data.error === "EMAIL_TAKEN" ? t.errorEmailTaken : (data.error ?? t.errorGeneral);
+        setError(errorMessage);
         recaptchaRef.current?.reset();
         setCaptchaToken(null);
         return;
