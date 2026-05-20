@@ -26,6 +26,11 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "EMAIL_TAKEN" }, { status: 409 });
   }
 
+  const types = [/[a-z]/, /[A-Z]/, /[0-9]/, /[^a-zA-Z0-9]/].filter((r) => r.test(password)).length;
+  if (password.length < 8 || types < 3) {
+    return NextResponse.json({ error: "WEAK_PASSWORD" }, { status: 400 });
+  }
+
   const passwordHash = await bcrypt.hash(password, 10);
   await createUser({ email, passwordHash });
 
