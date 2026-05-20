@@ -26,6 +26,7 @@ const messages = {
     errorEmailInvalid: "Please enter a valid email address.",
     errorEmailTaken: "This email is already registered.",
     errorGeneral: "Registration failed. Please try again.",
+    forgotPassword: "Forgot password?",
   },
   "zh-TW": {
     title: "建立帳號",
@@ -41,6 +42,7 @@ const messages = {
     errorEmailInvalid: "請輸入有效的電子郵件地址。",
     errorEmailTaken: "此電子郵件已被註冊。",
     errorGeneral: "註冊失敗，請再試一次。",
+    forgotPassword: "忘記密碼？",
   },
 } as const;
 
@@ -235,12 +237,18 @@ export default function RegisterForm({ locale }: Props) {
           </button>
         </form>
 
-        <div className="flex justify-center">
+        <div className="flex justify-center gap-4">
           <Link
             href={`/${locale}`}
             className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors"
           >
             {t.backToLogin}
+          </Link>
+          <Link
+            href={`/${locale}/forgot-password`}
+            className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors"
+          >
+            {t.forgotPassword}
           </Link>
         </div>
       </div>
