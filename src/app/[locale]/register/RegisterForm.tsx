@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import ReCAPTCHA from "react-google-recaptcha";
+import { signIn } from "next-auth/react";
 
 interface Props {
   locale: string;
@@ -87,7 +88,8 @@ export default function RegisterForm({ locale }: Props) {
         setCaptchaToken(null);
         return;
       }
-      router.push(`/${locale}/register/success`);
+      await signIn("credentials", { email, password, redirect: false });
+      router.push(`/${locale}`);
     } catch {
       setError(t.errorGeneral);
     } finally {
