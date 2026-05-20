@@ -10,6 +10,8 @@ WORKDIR /app
 RUN corepack enable && corepack prepare pnpm@10.33.0 --activate
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+ARG NEXT_PUBLIC_RECAPTCHA_SITE_KEY
+ENV NEXT_PUBLIC_RECAPTCHA_SITE_KEY=$NEXT_PUBLIC_RECAPTCHA_SITE_KEY
 RUN mkdir -p public/images && cp -r content/images/. public/images/
 # 重要：先生成內容資料，再進行 Next.js build
 RUN npx contentlayer2 build
